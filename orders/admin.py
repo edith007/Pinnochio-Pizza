@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Order, MenuSection, Item, Topping
 
-# Register your models here.
+
+class MenuItemAdmin(admin.ModelAdmin):
+    exclude = ('toppings',)
+
+
+admin.site.register(MenuSection)
+admin.site.register(Topping)
+admin.site.register(Order)
+admin.site.register(Item, MenuItemAdmin)
