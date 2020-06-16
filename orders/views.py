@@ -9,7 +9,6 @@ from .models import Order, Topping, Item, MenuSection
 def index(request):
 
     if not request.user.is_authenticated:
-        print("Not authenticated!!!!")
         return render(request, 'orders/login.html', {'message': None})
 
     # get the information required.
@@ -20,8 +19,8 @@ def index(request):
 
 def login_view(request):
 
+    print(f"Attempting to authenticate: {request.POST['username']} {request.POST['password']}")
     user = authenticate(
-        request,
         username=request.POST['username'],
         password=request.POST['password']
     )
@@ -51,6 +50,8 @@ def registration_attempt(request):
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name']
     )
+
+    print(f"Created new user ({submitted_username} @ {request.POST['password']})")
     return render(request, 'orders/login.html', {'login_message': 'Successful registration! Please login.'})
 
 
