@@ -1,0 +1,31 @@
+{% extends "orders/template.html" %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block body %}
+    <h1>Order Some Pizza!</h1>
+
+    <div>
+        {% for category in categories %}
+        <div>
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse{{ category.name }}" aria-expanded="false" aria-controls="collapseExample">
+                  {{ category.name }}
+                </button>
+            </p>
+            <div class="collapse" id="collapse{{ category.name }}">
+                <div class="card card-body">
+                    {% if category.hasAddOns %}
+                    {% endif %}
+
+                    {% if category.hasSizes %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

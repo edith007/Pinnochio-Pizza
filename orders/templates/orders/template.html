@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="{% static 'orders/styles.css' %}"/>
+    </head>
+
+    <body background="{% static 'orders/img/pizza.png' %}">
+
+        <nav class="navbar navbar-expand navbar-light bg-light">
+            {% block navbar %}
+            {% endblock %}
+        </nav>
+
+        {% block body %}
+        {% endblock %}
+
+    </body>
+
+</html>

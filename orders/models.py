@@ -29,10 +29,17 @@ class Item(models.Model):
 
 
 class Order(models.Model):
+    STATUSES = (
+        ('cart', 'Cart'),
+        ('progress', 'In Progress'),
+        ('oiw', 'On it\'s Way')
+    )
+
+    user = models.CharField(max_length=60)
     date_placed = models.DateField()
     time_placed = models.TimeField()
     items = models.ManyToManyField(Item, related_name="cart")
+    status = models.CharField(max_length=10, choices=STATUSES, default='cart')
 
     def __str__(self):
         return f"Order ({self.date_placed} {self.time_placed})"
-

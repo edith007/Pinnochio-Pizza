@@ -1,0 +1,55 @@
+body {
+    font-family: "Monaco", sans-serif;
+    background-color: #b21807;
+    font-color: #b21807;
+}
+
+h2 {
+    font-size: 27px;
+    color: white;
+    text-align: center;
+    margin: 30px;
+}
+
+h4 {
+    font-size: 20px;
+    color: #b21807;
+}
+
+h5 {
+    font-size: 15px;
+}
+
+a {
+    color: #FF4500;
+}
+
+#title {
+    font-size: 28px;
+}
+
+#login_container {
+    background-color: white;
+    padding: 30px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.center_box {
+    margin: auto;
+    width: 50%;
+    max-width: 500px;
+    margin-top: 10%;
+}
+
+.center_box .logo {
+    width: 100%;
+    margin: auto;
+}
+
+.btn {
+    background-color: #b21807;
+    border: #b21807;
+    color: white;
+    margin-top: 20px;
+}
