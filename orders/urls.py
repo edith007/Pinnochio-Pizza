@@ -1,3 +1,4 @@
+
 from django.urls import path
 from django.contrib import admin
 
@@ -8,5 +9,6 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
-    path("registration_attempt", views.registration_attempt, name="registration_attempt")
+    path("registration_attempt", views.registration_attempt, name="registration_attempt"),
+    path("add_item_to_cart", views.add_item_to_cart, name="add_item_to_cart")
 ]

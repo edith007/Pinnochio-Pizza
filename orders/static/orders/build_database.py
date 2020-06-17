@@ -66,714 +66,797 @@ platters.save()
 
 # ------ Add Sizes to Database ------ #
 
+one_size = Size(value="One Size")
 small = Size(value="Small")
-regular = Size(value="Regular")
 large = Size(value="Large")
 
 small.save()
-regular.save()
+one_size.save()
 large.save()
 
-# ------ Add Items to Database ------ #
+# ------ Add MenuItems to Database ------ #
 
 
-# - Regular Pizza category - #
+# --- Regular Pizza category --- #
 
-s_regular_pizza_0 = Item(
+# - 0 Toppings - #
+item = Item(name="Cheese Pizza - Plain")
+item.save()
+price_small = Price(item=item, size=small, base_price=12.20)
+price_large = Price(item=item, size=large, base_price=17.45)
+price_small.save()
+price_large.save()
+
+regular_pizza_0 = MenuItem(
     category=regular_pizza,
-    name="Cheese",
-    size=small,
-    number_of_toppings=0,
-    price=12.20
+    name=item,
+    number_of_possible_toppings=0
 )
+regular_pizza_0.save()
 
-l_regular_pizza_0 = Item(
+regular_pizza_0.available_sizes.add(small, large)
+regular_pizza_0.prices.add(price_small, price_large)
+
+
+# - 1 Topping - #
+item = Item(name="Cheese Pizza - 1 Topping")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=13.20)
+price_large = Price(item=item, size=large, base_price=19.45)
+price_small.save()
+price_large.save()
+
+regular_pizza_1 = MenuItem(
     category=regular_pizza,
-    name="Cheese Pizza",
-    size=large,
-    number_of_toppings=0,
-    price=17.45
+    name=item,
+    number_of_possible_toppings=1
 )
 
-s_regular_pizza_1 = Item(
+regular_pizza_1.save()
+regular_pizza_1.available_sizes.add(small, large)
+regular_pizza_1.prices.add(price_small, price_large)
+regular_pizza_1.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+
+# - 2 Toppings - #
+item = Item(name="Cheese Pizza - 2 Toppings")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=14.70)
+price_large = Price(item=item, size=large, base_price=21.45)
+price_small.save()
+price_large.save()
+
+regular_pizza_2 = MenuItem(
     category=regular_pizza,
-    name="Cheese Pizza - 1 Topping",
-    size=small,
-    number_of_toppings=1,
-    price=13.20
+    name=item,
+    number_of_possible_toppings=2
 )
 
-l_regular_pizza_1 = Item(
+regular_pizza_2.save()
+regular_pizza_2.available_sizes.add(small, large)
+regular_pizza_2.prices.add(price_small, price_large)
+regular_pizza_2.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+
+# - 3 Toppings - #
+item = Item(name="Cheese Pizza - 3 Toppings")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=15.70)
+price_large = Price(item=item, size=large, base_price=23.45)
+price_small.save()
+price_large.save()
+
+regular_pizza_3 = MenuItem(
     category=regular_pizza,
-    name="Cheese Pizza - 1 Topping",
-    size=large,
-    number_of_toppings=1,
-    price=19.45
+    name=item,
+    number_of_possible_toppings=3
 )
 
-s_regular_pizza_2 = Item(
+regular_pizza_3.save()
+regular_pizza_3.available_sizes.add(small, large)
+regular_pizza_3.prices.add(price_small, price_large)
+regular_pizza_3.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+# - Special - #
+item = Item(name="Special Cheese Pizza")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=17.25)
+price_large = Price(item=item, size=large, base_price=25.45)
+price_small.save()
+price_large.save()
+
+regular_pizza_4 = MenuItem(
     category=regular_pizza,
-    name="Cheese Pizza - 2 Toppings",
-    size=small,
-    number_of_toppings=2,
-    price=14.70
+    name=item,
+    number_of_possible_toppings=0
 )
 
-l_regular_pizza_2 = Item(
-    category=regular_pizza,
-    name="Cheese Pizza - 2 Toppings",
-    size=large,
-    number_of_toppings=2,
-    price=21.45
-)
-
-s_regular_pizza_3 = Item(
-    category=regular_pizza,
-    name="Cheese Pizza - 3 Toppings",
-    size=small,
-    number_of_toppings=3,
-    price=15.70
-)
-
-l_regular_pizza_3 = Item(
-    category=regular_pizza,
-    name="Cheese Pizza - 3 Toppings",
-    size=large,
-    number_of_toppings=3,
-    price=23.45
-)
+regular_pizza_4.save()
+regular_pizza_4.available_sizes.add(small, large)
+regular_pizza_4.prices.add(price_small, price_large)
 
 
-s_regular_pizza_special = Item(
-    category=regular_pizza,
-    name="Special",
-    size=small,
-    number_of_toppings=0,
-    price=17.25
-)
+# --- Sicilian Pizza category --- #
 
-l_regular_pizza_special = Item(
-    category=regular_pizza,
-    name="Special",
-    size=large,
-    number_of_toppings=0,
-    price=25.45
-)
+# - 0 Toppings - #
+item = Item(name="Sicilian Pizza - Plain")
+item.save()
 
-s_regular_pizza_0.save()
-l_regular_pizza_0.save()
+price_small = Price(item=item, size=small, base_price=23.45)
+price_large = Price(item=item, size=large, base_price=37.70)
+price_small.save()
+price_large.save()
 
-s_regular_pizza_1.save()
-l_regular_pizza_1.save()
-
-s_regular_pizza_2.save()
-l_regular_pizza_2.save()
-
-s_regular_pizza_3.save()
-l_regular_pizza_3.save()
-
-s_regular_pizza_special.save()
-l_regular_pizza_special.save()
-
-
-# - Sicilian Pizza category - #
-
-s_sicilian_pizza_0 = Item(
+sicilian_pizza_0 = MenuItem(
     category=sicilian_pizza,
-    name="Cheese Pizza",
-    size=small,
-    number_of_toppings=0,
-    price=23.45
+    name=item,
+    number_of_possible_toppings=0
 )
+sicilian_pizza_0.save()
 
-l_sicilian_pizza_0 = Item(
+sicilian_pizza_0.available_sizes.add(small, large)
+sicilian_pizza_0.prices.add(price_small, price_large)
+
+
+# - 1 Topping - #
+item = Item(name="Sicilian Pizza - 1 Topping")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=25.45)
+price_large = Price(item=item, size=large, base_price=39.70)
+price_small.save()
+price_large.save()
+
+silician_pizza_1 = MenuItem(
     category=sicilian_pizza,
-    name="Cheese Pizza",
-    size=large,
-    number_of_toppings=0,
-    price=37.70
+    name=item,
+    number_of_possible_toppings=1
 )
 
-s_sicilian_pizza_1 = Item(
+silician_pizza_1.save()
+silician_pizza_1.available_sizes.add(small, large)
+silician_pizza_1.prices.add(price_small, price_large)
+silician_pizza_1.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+
+# - 2 Toppings - #
+item = Item(name="Sicilian Pizza - 2 Toppings")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=27.45)
+price_large = Price(item=item, size=large, base_price=41.70)
+price_small.save()
+price_large.save()
+
+sicilian_pizza_2 = MenuItem(
     category=sicilian_pizza,
-    name="Cheese Pizza - 1 Topping",
-    size=small,
-    number_of_toppings=1,
-    price=25.45
+    name=item,
+    number_of_possible_toppings=2
 )
 
-l_sicilian_pizza_1 = Item(
+sicilian_pizza_2.save()
+sicilian_pizza_2.available_sizes.add(small, large)
+sicilian_pizza_2.prices.add(price_small, price_large)
+sicilian_pizza_2.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+
+# - 3 Toppings - #
+item = Item(name="Sicilian Pizza - 3 Toppings")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=28.45)
+price_large = Price(item=item, size=large, base_price=43.70)
+price_small.save()
+price_large.save()
+
+sicilian_pizza_3 = MenuItem(
     category=sicilian_pizza,
-    name="Cheese Pizza - 1 Topping",
-    size=large,
-    number_of_toppings=1,
-    price=39.70
+    name=item,
+    number_of_possible_toppings=3
 )
 
-s_sicilian_pizza_2 = Item(
+sicilian_pizza_3.save()
+sicilian_pizza_3.available_sizes.add(small, large)
+sicilian_pizza_3.prices.add(price_small, price_large)
+sicilian_pizza_3.available_topping_options.add(
+    pepperoni, sausage, mushrooms, ham, canadian_bacon, pineapple, eggplant, tomato_basil, green_peppers, hamburger,
+    spinach, artichoke, buffalo_chicken, barbecue_chicken, anchovies, black_olives, garlic, zucchini, onions
+)
+
+# - Special - #
+item = Item(name="Special Sicilian Pizza")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=29.45)
+price_large = Price(item=item, size=large, base_price=44.70)
+price_small.save()
+price_large.save()
+
+sicilian_pizza_4 = MenuItem(
     category=sicilian_pizza,
-    name="Cheese Pizza - 2 Toppings",
-    size=small,
-    number_of_toppings=2,
-    price=27.45
+    name=item,
+    number_of_possible_toppings=0
 )
 
-l_sicilian_pizza_2 = Item(
-    category=sicilian_pizza,
-    name="Cheese Pizza - 2 Toppings",
-    size=large,
-    number_of_toppings=2,
-    price=41.70
-)
-
-s_sicilian_pizza_3 = Item(
-    category=sicilian_pizza,
-    name="Cheese Pizza - 3 Toppings",
-    size=small,
-    number_of_toppings=3,
-    price=28.45
-)
-
-l_sicilian_pizza_3 = Item(
-    category=sicilian_pizza,
-    name="Cheese Pizza - 3 Toppings",
-    size=large,
-    number_of_toppings=3,
-    price=43.70
-)
-
-s_sicilian_pizza_special = Item(
-    category=sicilian_pizza,
-    name="Special",
-    size=small,
-    number_of_toppings=3,
-    price=29.45
-)
-
-l_sicilian_pizza_special = Item(
-    category=sicilian_pizza,
-    name="Special",
-    size=large,
-    number_of_toppings=3,
-    price=44.70
-)
-
-s_sicilian_pizza_0.save()
-l_sicilian_pizza_0.save()
-
-s_sicilian_pizza_1.save()
-l_sicilian_pizza_1.save()
-
-s_sicilian_pizza_2.save()
-l_sicilian_pizza_2.save()
-
-s_sicilian_pizza_3.save()
-l_sicilian_pizza_3.save()
-
-s_sicilian_pizza_special.save()
-l_sicilian_pizza_special.save()
+sicilian_pizza_4.save()
+sicilian_pizza_4.available_sizes.add(small, large)
+sicilian_pizza_4.prices.add(price_small, price_large)
 
 
-# - Sub category - #
+# --- Sub Category --- #
 
-s_cheese_sub = Item(
+# - Cheese - #
+item = Item(name="Cheese Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+cheese_sub = MenuItem(
     category=subs,
-    name="Cheese",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-l_cheese_sub = Item(
+cheese_sub.save()
+cheese_sub.available_sizes.add(small, large)
+cheese_sub.prices.add(price_small, price_large)
+cheese_sub.available_topping_options.add(extra_cheese)
+
+
+# - Italian - #
+item = Item(name="Italian Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+italian_sub = MenuItem(
     category=subs,
-    name="Cheese Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-s_italian_sub = Item(
+italian_sub.save()
+italian_sub.available_sizes.add(small, large)
+italian_sub.prices.add(price_small, price_large)
+italian_sub.available_topping_options.add(extra_cheese)
+
+
+# - Ham + Cheese - #
+item = Item(name="Ham & Cheese Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+ham_cheese_sub = MenuItem(
     category=subs,
-    name="Italian Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-l_italian_sub = Item(
+ham_cheese_sub.save()
+ham_cheese_sub.available_sizes.add(small, large)
+ham_cheese_sub.prices.add(price_small, price_large)
+ham_cheese_sub.available_topping_options.add(extra_cheese)
+
+
+# - Meatball Sub - #
+item = Item(name="Meatball Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+meatball_sub = MenuItem(
     category=subs,
-    name="Italian Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-s_ham_sub = Item(
+meatball_sub.save()
+meatball_sub.available_sizes.add(small, large)
+meatball_sub.prices.add(price_small, price_large)
+meatball_sub.available_topping_options.add(extra_cheese)
+
+
+# - Tuna Sub - #
+item = Item(name="Tuna Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+tuna_sub = MenuItem(
     category=subs,
-    name="Ham & Cheese Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-l_ham_sub = Item(
+tuna_sub.save()
+tuna_sub.available_sizes.add(small, large)
+tuna_sub.prices.add(price_small, price_large)
+tuna_sub.available_topping_options.add(extra_cheese)
+
+
+# - Turkey Sub - #
+item = Item(name="Turkey Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+turkey_sub = MenuItem(
     category=subs,
-    name="Ham & Cheese Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-s_meatball_sub = Item(
+turkey_sub.save()
+turkey_sub.available_sizes.add(small, large)
+turkey_sub.prices.add(price_small, price_large)
+turkey_sub.available_topping_options.add(extra_cheese)
+
+
+# - Chicken Parmigiana Sub - #
+item = Item(name="Chicken Parmigiana Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=7.50)
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+chick_parm_sub = MenuItem(
     category=subs,
-    name="Meatball Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-l_meatball_sub = Item(
+chick_parm_sub.save()
+chick_parm_sub.available_sizes.add(small, large)
+chick_parm_sub.prices.add(price_small, price_large)
+chick_parm_sub.available_topping_options.add(extra_cheese)
+
+
+# - Eggplant Parmigiana Sub - #
+item = Item(name="Eggplant Parmigiana Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+eggplant_parm_sub = MenuItem(
     category=subs,
-    name="Meatball Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-s_tuna_sub = Item(
+eggplant_parm_sub.save()
+eggplant_parm_sub.available_sizes.add(small, large)
+eggplant_parm_sub.prices.add(price_small, price_large)
+eggplant_parm_sub.available_topping_options.add(extra_cheese)
+
+
+# - Steak Sub - #
+item = Item(name="Steak Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.50)
+price_large = Price(item=item, size=large, base_price=7.95)
+price_small.save()
+price_large.save()
+
+steak_sub = MenuItem(
     category=subs,
-    name="Tuna Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-l_tuna_sub = Item(
+steak_sub.save()
+steak_sub.available_sizes.add(small, large)
+steak_sub.prices.add(price_small, price_large)
+steak_sub.available_topping_options.add(extra_cheese)
+
+
+# - Steak + Cheese, Etc. Sub - #
+item = Item(name="Steak + Cheese Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.95)
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+steak_sub = MenuItem(
     category=subs,
-    name="Tuna Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
+    name=item,
+    number_of_possible_toppings=4,
+    price_per_additional_topping=0.50
 )
 
-s_turkey_sub = Item(
+steak_sub.save()
+steak_sub.available_sizes.add(small, large)
+steak_sub.prices.add(price_small, price_large)
+steak_sub.available_topping_options.add(onions, green_peppers, mushrooms, extra_cheese)
+
+
+# - Sausage Sub - #
+item = Item(name="Sausage, Peppers & Onion Sub")
+item.save()
+
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+sausage_sub = MenuItem(
     category=subs,
-    name="Turkey Sub",
-    size=small,
-    number_of_toppings=0,
-    price=7.50
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
-
-l_turkey_sub = Item(
-    category=subs,
-    name="Turkey Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_chicken_parm_sub = Item(
-    category=subs,
-    name="Chicken Parmigiana Sub",
-    size=small,
-    number_of_toppings=0,
-    price=7.50
-)
-
-l_chicken_parm_sub = Item(
-    category=subs,
-    name="Chicken Parmigiana Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_eggplant_parm_sub = Item(
-    category=subs,
-    name="Eggplant Parmigiana Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
-)
-
-l_eggplant_parm_sub = Item(
-    category=subs,
-    name="Eggplant Parmigiana Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
-)
-
-s_steak_sub = Item(
-    category=subs,
-    name="Steak Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.50
-)
-
-l_steak_sub = Item(
-    category=subs,
-    name="Steak Sub",
-    size=large,
-    number_of_toppings=0,
-    price=7.95
-)
-
-s_steak_cheese_sub_0 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.95
-)
-
-l_steak_cheese_sub_0 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_steak_cheese_sub_1 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=small,
-    number_of_toppings=1,
-    price=7.45
-)
-
-l_steak_cheese_sub_1 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=large,
-    number_of_toppings=1,
-    price=9.00
-)
-
-s_steak_cheese_sub_2 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=small,
-    number_of_toppings=2,
-    price=7.95
-)
-
-l_steak_cheese_sub_2 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=large,
-    number_of_toppings=2,
-    price=9.50
-)
-s_steak_cheese_sub_3 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=small,
-    number_of_toppings=3,
-    price=8.45
-)
-
-l_steak_cheese_sub_3 = Item(
-    category=subs,
-    name="Steak & Cheese Sub",
-    size=large,
-    number_of_toppings=3,
-    price=10.00
-)
-
-sausage_sub = Item(
-    category=subs,
-    name="Sausage, Pepper & Onion Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_hamburger = Item(
-    category=subs,
-    name="Hamburger",
-    size=small,
-    number_of_toppings=0,
-    price=4.60
-)
-
-l_hamburger = Item(
-    category=subs,
-    name="Hamburger",
-    size=large,
-    number_of_toppings=0,
-    price=6.95
-)
-
-s_cheeseburger = Item(
-    category=subs,
-    name="Cheeseburger",
-    size=small,
-    number_of_toppings=0,
-    price=5.10
-)
-
-l_cheeseburger = Item(
-    category=subs,
-    name="Cheeseburger",
-    size=large,
-    number_of_toppings=0,
-    price=7.45
-)
-
-s_fried_chicken = Item(
-    category=subs,
-    name="Fried Chicken Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.95
-)
-
-l_fried_chicken = Item(
-    category=subs,
-    name="Fried Chicken Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_veggie = Item(
-    category=subs,
-    name="Veggie Sub",
-    size=small,
-    number_of_toppings=0,
-    price=6.95
-)
-
-l_veggie = Item(
-    category=subs,
-    name="Veggie Sub",
-    size=large,
-    number_of_toppings=0,
-    price=8.50
-)
-
-s_cheese_sub.save()
-l_cheese_sub.save()
-
-s_italian_sub.save()
-l_italian_sub.save()
-
-s_ham_sub.save()
-l_ham_sub.save()
-
-s_meatball_sub.save()
-l_meatball_sub.save()
-
-s_tuna_sub.save()
-l_tuna_sub.save()
-
-s_turkey_sub.save()
-l_turkey_sub.save()
-
-s_chicken_parm_sub.save()
-l_chicken_parm_sub.save()
-
-s_eggplant_parm_sub.save()
-l_eggplant_parm_sub.save()
-
-s_steak_sub.save()
-l_steak_sub.save()
-
-s_steak_cheese_sub_0.save()
-l_steak_cheese_sub_0.save()
-
-s_steak_cheese_sub_1.save()
-l_steak_cheese_sub_1.save()
-
-s_steak_cheese_sub_2.save()
-l_steak_cheese_sub_2.save()
-
-s_steak_cheese_sub_3.save()
-l_steak_cheese_sub_3.save()
 
 sausage_sub.save()
-
-s_hamburger.save()
-l_hamburger.save()
-
-s_cheeseburger.save()
-l_cheeseburger.save()
-
-s_fried_chicken.save()
-l_fried_chicken.save()
-
-s_veggie.save()
-l_veggie.save()
+sausage_sub.available_sizes.add(large)
+sausage_sub.prices.add(price_large)
+sausage_sub.available_topping_options.add(extra_cheese)
 
 
-# - Pasta category - #
+# - Hamburger Sub - #
+item = Item(name="Hamburger Sub")
+item.save()
 
+price_small = Price(item=item, size=small, base_price=4.60)
+price_large = Price(item=item, size=large, base_price=6.95)
+price_small.save()
+price_large.save()
 
-ziti_mozz = Item(
-    category=pasta,
-    name="Baked Ziti with Mozzarella",
-    size=regular,
-    price=6.50
+hamburger_sub = MenuItem(
+    category=subs,
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-ziti_meatballs = Item(
-    category=pasta,
-    name="Baked Ziti with Meatballs",
-    size=regular,
-    price=8.75
+hamburger_sub.save()
+hamburger_sub.available_sizes.add(small, large)
+hamburger_sub.prices.add(price_small, price_large)
+hamburger_sub.available_topping_options.add(extra_cheese)
+
+
+# - Cheeseburger Sub - #
+item = Item(name="Cheeseburger Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=5.10)
+price_large = Price(item=item, size=large, base_price=7.45)
+price_small.save()
+price_large.save()
+
+cheeseburger_sub = MenuItem(
+    category=subs,
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
-ziti_chicken = Item(
-    category=pasta,
-    name="Baked Ziti with Chicken",
-    size=regular,
-    price=9.75
+cheeseburger_sub.save()
+cheeseburger_sub.available_sizes.add(small, large)
+cheeseburger_sub.prices.add(price_small, price_large)
+cheeseburger_sub.available_topping_options.add(extra_cheese)
+
+
+# - Fried Chicken Sub - #
+item = Item(name="Fried Chicken Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.95)
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+fried_chick_sub = MenuItem(
+    category=subs,
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
 )
 
+fried_chick_sub.save()
+fried_chick_sub.available_sizes.add(small, large)
+fried_chick_sub.prices.add(price_small, price_large)
+fried_chick_sub.available_topping_options.add(extra_cheese)
+
+
+# - Veggie Sub - #
+item = Item(name="Veggie Sub")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=6.95)
+price_large = Price(item=item, size=large, base_price=8.50)
+price_small.save()
+price_large.save()
+
+veggie_sub = MenuItem(
+    category=subs,
+    name=item,
+    number_of_possible_toppings=1,
+    price_per_additional_topping=0.50
+)
+
+veggie_sub.save()
+veggie_sub.available_sizes.add(small, large)
+veggie_sub.prices.add(price_small, price_large)
+veggie_sub.available_topping_options.add(extra_cheese)
+
+
+# --- Pasta Category --- #
+
+# - Ziti with Mozzarella - #
+item = Item(name="Baked Ziti with Mozzarella")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=6.50)
+price_one_size.save()
+
+ziti_mozz = MenuItem(
+    category=pasta,
+    name=item
+)
 ziti_mozz.save()
+ziti_mozz.available_sizes.add(one_size)
+ziti_mozz.prices.add(price_one_size)
+
+
+# - Ziti with Meatballs - #
+item = Item(name="Baked Ziti with Meatballs")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=8.75)
+price_one_size.save()
+
+ziti_meatballs = MenuItem(
+    category=pasta,
+    name=item
+)
 ziti_meatballs.save()
+ziti_meatballs.available_sizes.add(one_size)
+ziti_meatballs.prices.add(price_one_size)
+
+# - Ziti with Chicken - #
+item = Item(name="Baked Ziti with Chicken")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=9.75)
+price_one_size.save()
+
+ziti_chicken = MenuItem(
+    category=pasta,
+    name=item
+)
 ziti_chicken.save()
+ziti_chicken.available_sizes.add(one_size)
+ziti_chicken.prices.add(price_one_size)
 
 
-# - Salads category - #
+# --- Salads category --- #
 
-garden_salad = Item(
+# - Garden Salad - #
+item = Item(name="Garden Salad")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=6.25)
+price_one_size.save()
+
+garden_salad = MenuItem(
     category=salads,
-    name="Garden Salad",
-    size=regular,
-    price=6.25
+    name=item
 )
-
-greek_salad = Item(
-    category=salads,
-    name="Greek Salad",
-    size=regular,
-    price=8.25
-)
-
-antipasto = Item(
-    category=salads,
-    name="Antipasto Salad",
-    size=regular,
-    price=8.25
-)
-
-tuna_salad = Item(
-    category=salads,
-    name="Salad w/ Tuna",
-    size=regular,
-    price=8.25
-)
-
 garden_salad.save()
+garden_salad.available_sizes.add(one_size)
+garden_salad.prices.add(price_one_size)
+
+
+# - Greek Salad - #
+item = Item(name="Greek Salad")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=8.25)
+price_one_size.save()
+
+greek_salad = MenuItem(
+    category=salads,
+    name=item
+)
 greek_salad.save()
+greek_salad.available_sizes.add(one_size)
+greek_salad.prices.add(price_one_size)
+
+
+# - Antipasto Salad - #
+item = Item(name="Antipasto")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=8.25)
+price_one_size.save()
+
+antipasto = MenuItem(
+    category=salads,
+    name=item
+)
 antipasto.save()
+antipasto.available_sizes.add(one_size)
+antipasto.prices.add(price_one_size)
+
+
+# - Tuna Salad - #
+item = Item(name="Tuna Salad")
+item.save()
+
+price_one_size = Price(item=item, size=one_size, base_price=8.25)
+price_one_size.save()
+
+tuna_salad = MenuItem(
+    category=salads,
+    name=item
+)
 tuna_salad.save()
+tuna_salad.available_sizes.add(one_size)
+tuna_salad.prices.add(price_one_size)
 
 
-# - Dinner Platter category - #
+# --- Dinner Platter category --- #
 
-s_garden_salad_platter = Item(
+# - Garden Salad Platter - #
+item = Item(name="Garden Salad Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=35.00)
+price_large = Price(item=item, size=large, base_price=60.00)
+price_small.save()
+price_large.save()
+
+garden_salad_platter = MenuItem(
     category=platters,
-    name="Garden Salad Platter",
-    size=small,
-    price=35.00
+    name=item
 )
 
-l_garden_salad_platter = Item(
+garden_salad_platter.save()
+garden_salad_platter.available_sizes.add(small, large)
+garden_salad_platter.prices.add(price_small, price_large)
+
+# - Greek Salad Platter - #
+item = Item(name="Greek Salad Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=45.00)
+price_large = Price(item=item, size=large, base_price=70.00)
+price_small.save()
+price_large.save()
+
+greek_salad_platter = MenuItem(
     category=platters,
-    name="Garden Salad Platter",
-    size=large,
-    price=60.00
+    name=item
 )
 
-s_greek_salad_platter = Item(
+greek_salad_platter.save()
+greek_salad_platter.available_sizes.add(small, large)
+greek_salad_platter.prices.add(price_small, price_large)
+
+
+# - Antipasto Salad Platter - #
+item = Item(name="Antipasto Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=45.00)
+price_large = Price(item=item, size=large, base_price=70.00)
+price_small.save()
+price_large.save()
+
+antipasto_platter = MenuItem(
     category=platters,
-    name="Greek Salad Platter",
-    size=small,
-    price=45.00
+    name=item
 )
 
-l_greek_salad_platter = Item(
+antipasto_platter.save()
+antipasto_platter.available_sizes.add(small, large)
+antipasto_platter.prices.add(price_small, price_large)
+
+
+# - Baked Ziti Platter - #
+item = Item(name="Baked Ziti Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=35.00)
+price_large = Price(item=item, size=large, base_price=60.00)
+price_small.save()
+price_large.save()
+
+baked_ziti_platter = MenuItem(
     category=platters,
-    name="Greek Salad Platter",
-    size=large,
-    price=70.00
+    name=item
 )
 
-s_antipasto_salad_platter = Item(
+baked_ziti_platter.save()
+baked_ziti_platter.available_sizes.add(small, large)
+baked_ziti_platter.prices.add(price_small, price_large)
+
+
+# - Meatball Parm Platter - #
+item = Item(name="Meatball Parmiagana Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=45.00)
+price_large = Price(item=item, size=large, base_price=70.00)
+price_small.save()
+price_large.save()
+
+meatball_parm_platter = MenuItem(
     category=platters,
-    name="Antipasto Salad Platter",
-    size=small,
-    price=45.00
+    name=item
 )
 
-l_antipasto_salad_platter = Item(
+meatball_parm_platter.save()
+meatball_parm_platter.available_sizes.add(small, large)
+meatball_parm_platter.prices.add(price_small, price_large)
+
+# - Chicken Parm Platter - #
+item = Item(name="Chicken Parmiagana Platter")
+item.save()
+
+price_small = Price(item=item, size=small, base_price=45.00)
+price_large = Price(item=item, size=large, base_price=80.00)
+price_small.save()
+price_large.save()
+
+chicken_parm_platter = MenuItem(
     category=platters,
-    name="Antipasto Salad Platter",
-    size=large,
-    price=70.00
+    name=item
 )
 
-s_baked_ziti_platter = Item(
-    category=platters,
-    name="Baked Ziti Platter",
-    size=small,
-    price=35.00
-)
-
-l_baked_ziti_platter = Item(
-    category=platters,
-    name="Baked Ziti Platter",
-    size=large,
-    price=60.00
-)
-
-s_meat_parm_platter = Item(
-    category=platters,
-    name="Meatball Parmigiana Platter",
-    size=small,
-    price=45.00
-)
-
-l_meat_parm_platter = Item(
-    category=platters,
-    name="Meatball Parmigiana Platter",
-    size=large,
-    price=70.00
-)
-
-s_chicken_parm_platter = Item(
-    category=platters,
-    name="Chicken Parmigiana Platter",
-    size=small,
-    price=45.00
-)
-
-l_chicken_parm_platter = Item(
-    category=platters,
-    name="Chicken Parmigiana Platter",
-    size=large,
-    price=80.00
-)
-
-s_garden_salad_platter.save()
-l_garden_salad_platter.save()
-
-s_greek_salad_platter.save()
-l_greek_salad_platter.save()
-
-s_antipasto_salad_platter.save()
-l_antipasto_salad_platter.save()
-
-s_baked_ziti_platter.save()
-l_baked_ziti_platter.save()
-
-s_meat_parm_platter.save()
-l_meat_parm_platter.save()
-
-s_chicken_parm_platter.save()
-l_chicken_parm_platter.save()
+chicken_parm_platter.save()
+chicken_parm_platter.available_sizes.add(small, large)
+chicken_parm_platter.prices.add(price_small, price_large)

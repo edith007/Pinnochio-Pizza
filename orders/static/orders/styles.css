@@ -105,7 +105,8 @@ a:hover {
 
 .menu-section {
     color: black;
-    font-size: 24px;
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
 .itemForm {

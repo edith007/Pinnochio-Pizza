@@ -46,7 +46,11 @@
                         </h4>
                         <div id="{{ pizza.category }}-{{ pizza.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ pizza.category }}-{{ pizza.name }} name="item">
+                                    </div>
 
                                     <b class="question"> (1) Select a size: </b>
                                     <p>
@@ -103,7 +107,11 @@
                         </h4>
                         <div id="{{ s_pizza.category }}-{{ s_pizza.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ s_pizza.category }}-{{ s_pizza.name }} name="item">
+                                    </div>
 
                                     <b class="question"> (1) Select a size: </b>
                                     <p>
@@ -160,7 +168,11 @@
                         </h4>
                         <div id="{{ sub.category }}-{{ sub.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ sub.category }}-{{ sub.name }} name="item">
+                                    </div>
 
                                     <b class="question"> (1) Select a size: </b>
                                     <p>
@@ -219,7 +231,11 @@
                         </h4>
                         <div id="{{ salad.category }}-{{ salad.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ salad.category }}-{{ salad.name }} name="item">
+                                    </div>
 
                                     <div>
                    		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
@@ -248,7 +264,11 @@
                         </h4>
                         <div id="{{ pasta.category }}-{{ pasta.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ pasta.category }}-{{ pasta.name }} name="item">
+                                    </div>
 
                                     <b class="question"> (1) Select a size: </b>
                                     <p>
@@ -289,7 +309,11 @@
                         </h4>
                         <div id="{{ platter.category }}-{{ platter.name }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form class="itemForm">
+                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+
+                                    <div class="input-group">
+                                        <input type="hidden" value={{ platter.category }}-{{ platter.name }} name="item">
+                                    </div>
 
                                     <b class="question"> (1) Select a size: </b>
                                     <p>
