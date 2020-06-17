@@ -1,5 +1,5 @@
 """
-Sets up database from scratch, if necessary, to reflect Pinnochio’s Pizza on 07/2019
+Sets up database from scratch, if necessary, to reflect Pinnochio’s Pizza on 06/2020
 """
 from orders.models import *
 
