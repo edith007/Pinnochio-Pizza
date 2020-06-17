@@ -1,18 +1,21 @@
-  version: '3'
-    
-  services:
+version: '3'
+services:
     db:
-      image: postgres
-      environment:
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+        image: postgres
+    migration:
+        build: .
+        command: python.py manage.py migrate
+        volumes:
+            - .:/usr/src/app
+        depends_on:
+            - db
     web:
-      build: .
-      command: python manage.py runserver 0.0.0.0:8000
-      volumes:
-        - .:/code
-      ports:
-        - "8000:8000"
-      depends_on:
-        - db
+        build: .
+        command: python3 manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/usr/src/app
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+            - migration

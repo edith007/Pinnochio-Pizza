@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 
 class MenuSection(models.Model):
@@ -7,6 +9,11 @@ class MenuSection(models.Model):
     def __str__(self):
         return f"{self.section}"
 
+class Size(models.Model):
+    value = models.CharField(max_length=60)
+
+    def __str__(self):
+        return f"{self.value}"
 
 class Topping(models.Model):
     type = models.CharField(max_length=60)
