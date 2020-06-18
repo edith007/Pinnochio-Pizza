@@ -21,12 +21,13 @@ h5 {
 
 a {
     color: #FF4500;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 a:hover {
     color: black;
 }
+
 
 #title {
     font-size: 28px;
@@ -80,6 +81,7 @@ a:hover {
     max-width: 500px;
     margin-top: 5%;
     text-align: center;
+    border: 1px solid black;
 }
 
 .header-underscore {
@@ -90,7 +92,10 @@ a:hover {
 
 #menu-container #order-header {
     padding-top: 20px;
+}
 
+#menu-container #instructions {
+    font-size: 16px;
 }
 
 .section-underscore {
@@ -121,15 +126,19 @@ a:hover {
 
 .itemForm b {
     margin: 5px;
+    font-size: 14px;
 }
 
 .itemForm p {
     margin: 5px;
+    font-size: 14px;
 }
 
 .topping-select {
     margin-bottom: 10px;
     margin-top: 5px;
+    text-align: center;
+    text-align-last: center;
 }
 
 .question {

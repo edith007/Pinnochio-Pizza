@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 
 class MenuSection(models.Model):
-    section = models.CharField(max_length=60)
+    name = models.CharField(max_length=60)
 
     def __str__(self):
-        return f"{self.section}"
+        return f"{self.name}"
 
 
 class Size(models.Model):
@@ -41,7 +41,7 @@ class Price(models.Model):
 
 class MenuItem(models.Model):
     category = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
-    name = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     available_sizes = models.ManyToManyField(Size, default='One-Size')
     number_of_possible_toppings = models.IntegerField(default=0,  blank=True)
     available_topping_options = models.ManyToManyField(Topping, blank=True, related_name="selected_toppings")
@@ -49,7 +49,10 @@ class MenuItem(models.Model):
     prices = models.ManyToManyField(Price)
 
     def __str__(self):
-        return f"{self.category} - {self.name} ({self.number_of_possible_toppings} toppings)"
+        if self.category in ["Regular Pizza", "Sicilian Pizza"]:
+            return f"{self.item} ({self.number_of_possible_toppings} toppings)"
+        else:
+            return f"{self.item}"
 
 
 class CustomerItem(models.Model):

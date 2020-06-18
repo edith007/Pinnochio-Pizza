@@ -15,17 +15,12 @@ def index(request):
         return render(request, 'orders/login.html', {'message': None})
 
     # get the information required.
-    context = {
-        'user': request.user,
-        'regular_pizzas': menu.distinct_regular_pizzas(),
-        'silician_pizzas': menu.distinct_sicilian_pizzas(),
-        'subs': menu.distinct_subs(),
-        'pastas': menu.distinct_pastas(),
-        'salads': menu.distinct_salads(),
-        'platters': menu.distinct_platters(),
-        'toppings': menu.get_toppings()
-    }
+    menu_objects = dict()
+    for category in menu.categories:
+        menu_objects[category.name] = menu.get_items_by_category(category.name)
 
+    context = {'menu': menu_objects}
+    print(context['menu'])
     return render(request, 'orders/index.html', context)
 
 

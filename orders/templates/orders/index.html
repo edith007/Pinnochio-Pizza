@@ -26,321 +26,80 @@
 {% endblock %}
 
 {% block body %}
-
     <div id="menu-container">
         <h2 id="order-header">Place An Order</h2>
         <hr class="header-underscore">
-        <p>Select the dropdown of the item of interest, fill in selections, and click 'Add to Cart'!</p>
+        <p id="instructions">Select the dropdown of the item of interest, fill in selections, and click 'Add to Cart'!</p>
         <hr class="header-underscore">
 
-        <div class="menu-category">
-            <h4 class="menu-section">Regular Pizza</h4>
-            {% for pizza in regular_pizzas %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ pizza.category }}-{{ pizza.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ pizza.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ pizza.category }}-{{ pizza.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+        {% for category, menu_options in menu.items %}
 
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ pizza.category }}-{{ pizza.name }} name="item">
-                                    </div>
+            <div class="menu-category">
+                <h4 class="menu-section"> {{category}} </h4>
 
-                                    <b class="question"> (1) Select a size: </b>
-                                    <p>
-                                        <label class="radio">
-                                            <input type="radio" name="size" checked>
-                                            Small
-                                        </label>
-                                        <label class="radio">
-                                            <input type="radio" name="size">
-                                            Large
-                                        </label>
-                                    </p>
+                {% for option in menu_options %}
+                    <div class="panel-group accordion">
+                        <div class="panel panel-default">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#{{ option.category.name }}-{{ option.item.name }}">
+                                    <i class="fa fa-angle-down"></i>
+                                    {{ option.item.name }}
+                                </a>
+                            </h4>
+                            <div id="{{ option.category.name }}-{{ option.item.name }}" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
 
-                                    {% if pizza.number_of_toppings > 0 %}
-                                        <b class="question"> (2) Select toppings:</b>
-                                    {% endif %}
-                                    <div>
-                                        {% with ''|center:pizza.number_of_toppings as range %}
-                                        {% for _ in range %}
-                                            <select class="topping-select">
-                                                <option value="none" name="none" selected="selected">--</option>
-                                                {% for topping in toppings %}
-                                                    <option value="{{ topping }}" name="{{ topping }}">{{ topping }}</option>
+                                        <div class="input-group">
+                                            <input type="hidden" value={{ option.category.name }}-{{ option.item.name }} name="item">
+                                        </div>
+
+                                        <b class="question"> (1) Select a size: </b>
+                                        <p>
+
+                                            {% for price in option.prices.all %}
+                                                <label class="radio">
+                                                    <input type="radio" name="size-price">
+                                                    {{ price.size.value }} (${{ price.base_price }})
+                                                </label>
+                                            {% endfor %}
+
+                                        </p>
+
+                                        {% if option.number_of_possible_toppings > 0 %}
+                                            <b class="question"> (2) Select toppings (+${{ option.price_per_additional_topping }}/each): </b>
+                                            <div>
+
+                                                {% with ''|center:option.number_of_possible_toppings as range %}
+                                                {% for _ in range %}
+                                                    <select class="topping-select">
+                                                        <option value="none" name="none" selected="selected">--</option>
+
+                                                        {% for topping in option.available_topping_options.all %}
+                                                            <option value="{{ topping.type }}" name="{{ topping.type }}">{{ topping.type }}</option>
+                                                        {% endfor %}
+
+                                                    </select>
                                                 {% endfor %}
-                                            </select>
-                                        {% endfor %}
-                                        {% endwith %}
-                                    </div>
+                                                {% endwith %}
 
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
+                                            </div>
+                                        {% endif %}
 
-                                </form>
+                                        <div>
+                                            <button type="submit" class="add-to-cart btn">Add to Cart</button>
+                                        </div>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
 
-        <hr class="section-underscore">
-
-        <div class="menu-category">
-            <h4 class="menu-section">Sicilian Pizza</h4>
-            {% for s_pizza in silician_pizzas %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ s_pizza.category }}-{{ s_pizza.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ s_pizza.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ s_pizza.category }}-{{ s_pizza.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
-
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ s_pizza.category }}-{{ s_pizza.name }} name="item">
-                                    </div>
-
-                                    <b class="question"> (1) Select a size: </b>
-                                    <p>
-                                        <label class="radio">
-                                            <input type="radio" name="size" checked>
-                                            Small
-                                        </label>
-                                        <label class="radio">
-                                            <input type="radio" name="size">
-                                            Large
-                                        </label>
-                                    </p>
-
-                                    {% if s_pizza.number_of_toppings > 0 %}
-                                        <b class="question"> (2) Select toppings:</b>
-                                    {% endif %}
-                                    <div>
-                                        {% with ''|center:s_pizza.number_of_toppings as range %}
-                                        {% for _ in range %}
-                                            <select class="topping-select">
-                                                <option value="none" name="none" selected="selected">--</option>
-                                                {% for topping in toppings %}
-                                                    <option value="{{ topping }}" name="{{ topping }}">{{ topping }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        {% endfor %}
-                                        {% endwith %}
-                                    </div>
-
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <hr class="section-underscore">
-
-        <div class="menu-category">
-            <h4 class="menu-section">Subs</h4>
-            {% for sub in subs %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ sub.category }}-{{ sub.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ sub.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ sub.category }}-{{ sub.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
-
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ sub.category }}-{{ sub.name }} name="item">
-                                    </div>
-
-                                    <b class="question"> (1) Select a size: </b>
-                                    <p>
-                                        <label class="radio">
-                                            <input type="radio" name="size" checked>
-                                            Small
-                                        </label>
-                                        <label class="radio">
-                                            <input type="radio" name="size">
-                                            Large
-                                        </label>
-                                    </p>
-
-                                    {% if sub.number_of_toppings > 0 %}
-                                        <b class="question"> (2) Select toppings:</b>
-                                    {% endif %}
-                                    <div>
-                                        {% with ''|center:sub.number_of_toppings as range %}
-                                        {% for _ in range %}
-                                            <select class="topping-select">
-                                                <option value="none" name="none" selected="selected">--</option>
-                                                {% for topping in toppings %}
-                                                    <option value="{{ topping }}" name="{{ topping }}">{{ topping }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        {% endfor %}
-                                        {% endwith %}
-                                    </div>
-
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
-
-                                </form>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <hr class="section-underscore">
-
-        <div class="menu-category">
-            <h4 class="menu-section">Salads</h4>
-            {% for salad in salads %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ salad.category }}-{{ salad.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ salad.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ salad.category }}-{{ salad.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
-
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ salad.category }}-{{ salad.name }} name="item">
-                                    </div>
-
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <hr class="section-underscore">
-
-        <div class="menu-category">
-            <h4 class="menu-section">Pastas</h4>
-            {% for pasta in pastas %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ pasta.category }}-{{ pasta.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ pasta.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ pasta.category }}-{{ pasta.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
-
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ pasta.category }}-{{ pasta.name }} name="item">
-                                    </div>
-
-                                    <b class="question"> (1) Select a size: </b>
-                                    <p>
-                                        <label class="radio">
-                                            <input type="radio" name="size" checked>
-                                            Small
-                                        </label>
-                                        <label class="radio">
-                                            <input type="radio" name="size">
-                                            Large
-                                        </label>
-                                    </p>
-
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <hr class="section-underscore">
-
-        <div class="menu-category">
-            <h4 class="menu-section">Platters</h4>
-            {% for platter in platters %}
-                <div class="panel-group accordion">
-                    <div class="panel panel-default">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#{{ platter.category }}-{{ platter.name }}">
-                                <i class="fa fa-angle-down"></i>
-                                {{ platter.name }}
-                            </a>
-                        </h4>
-                        <div id="{{ platter.category }}-{{ platter.name }}" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
-
-                                    <div class="input-group">
-                                        <input type="hidden" value={{ platter.category }}-{{ platter.name }} name="item">
-                                    </div>
-
-                                    <b class="question"> (1) Select a size: </b>
-                                    <p>
-                                        <label class="radio">
-                                            <input type="radio" name="size" checked>
-                                            Small
-                                        </label>
-                                        <label class="radio">
-                                            <input type="radio" name="size">
-                                            Large
-                                        </label>
-                                    </p>
-
-                                    <div>
-                   		                <button type="submit" class="add-to-cart btn">Add to Cart</button>
-                  	                </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <hr class="section-underscore">
+            </div>
+            <hr class="section-underscore">
+        {% endfor %}
 
     </div>
-
 {% endblock %}

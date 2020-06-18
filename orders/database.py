@@ -1,25 +1,10 @@
-from .models import Order, Topping, CustomerItem, MenuItem, MenuSection
+from .models import *
 
 
 class MenuDB:
 
-    def distinct_regular_pizzas(self):
-        return MenuItem.objects.filter(category__section="Regular Pizza").exclude(size__value="Large")
+    def __init__(self):
+        self.categories = MenuSection.objects.all()
 
-    def distinct_sicilian_pizzas(self):
-        return MenuItem.objects.filter(category__section="Sicilian Pizza").exclude(size__value="Large")
-
-    def distinct_pastas(self):
-        return MenuItem.objects.filter(category__section="Pasta")
-
-    def distinct_subs(self):
-        return MenuItem.objects.filter(category__section="Subs").exclude(size__value="Large")
-
-    def distinct_salads(self):
-        return MenuItem.objects.filter(category__section="Salads")
-
-    def distinct_platters(self):
-        return MenuItem.objects.filter(category__section="Dinner Platters").exclude(size__value="Large")
-
-    def get_toppings(self):
-        return Topping.objects.all()
+    def get_items_by_category(self, category):
+        return MenuItem.objects.filter(category__name=category)
