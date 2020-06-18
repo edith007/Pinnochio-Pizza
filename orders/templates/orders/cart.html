@@ -1,100 +1,105 @@
+
 {% extends "orders/template.html" %}
 
 {% block title %}
-    Cart
+   My Cart
 {% endblock %}
 
 {% block navbar %}
 
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
-            <a href="{% url 'index' %}" class="navbar-brand mr-0" id="title"></a>
-        </ul>
-    </div>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ml-auto">
-            {% if is_admin %}
-                <li>
-                    <form action="{% url 'view_all_orders' %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn" id="all_orders" type="submit">View All Orders</button>
-                    </form>
-                </li>
-            {% endif %}
-            <li>
-                <form action="{% url 'view_cart' %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn shopping-cart">
-                        {% if items_in_cart > 0 %}
-                            <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
-                        {% else %}
-                            <i class="fa fa-shopping-cart"></i>
-                        {% endif %}
-                    </button>
-                </form>
-            </li>
-            <li>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn" id="logout" type="submit">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </div>
+   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+       <ul class="navbar-nav mr-auto">
+           <a href="{% url 'index' %}" class="navbar-brand mr-0" id="title"></a>
+       </ul>
+   </div>
+   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+       <ul class="navbar-nav ml-auto">
+           {% if is_admin %}
+               <li>
+                   <form action="{% url 'view_all_orders' %}" method="post">
+                       {% csrf_token %}
+                       <button class="btn" id="all_orders" type="submit">View All Orders</button>
+                   </form>
+               </li>
+           {% endif %}
+           <li>
+               <form action="{% url 'view_cart' %}" method="post">
+                   {% csrf_token %}
+                   <button class="btn shopping-cart">
+                       {% if items_in_cart and items_in_cart > 0 %}
+                           <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
+                       {% else %}
+                           <i class="fa fa-shopping-cart"></i>
+                       {% endif %}
+                   </button>
+               </form>
+           </li>
+           <li>
+               <form action="{% url 'logout' %}" method="post">
+                   {% csrf_token %}
+                   <button class="btn" id="logout" type="submit">Logout</button>
+               </form>
+           </li>
+       </ul>
+   </div>
 
 {% endblock %}
 
 {% block body %}
 
-    <div id="cart-container">
-        <h2 id="order-header">Your Cart <i class="fa fa-shopping-cart"></i></h2>
+   <div id="cart-container">
+       <h2 id="order-header">Your Cart <i class="fa fa-shopping-cart"></i></h2>
 
-        {% if items %}
-            <table class="table">
-                <tr>
-                    <th>Item</th>
-                    <th>Size</th>
-                    <th>Toppings</th>
-                    <th>Cost</th>
-                </tr>
+       {% if items %}
+           <table class="table">
+               <tr>
+                   <th>Item</th>
+                   <th>Size</th>
+                   <th>Toppings</th>
+                   <th>Cost</th>
+               </tr>
 
-                {% for selection in items %}
-                    <tr>
-                        <td>{{ selection.item.item.name }}</td>
-                        <td>{{ selection.size.value }}</td>
-                        <td>{{ selection.toppings.all|length }}</td>
-                        <td>${{ selection.price }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <b id="order-total">Total: ${{ total_cost }} </b>
+               {% for selection in items %}
+                   <tr>
+                       <td>{{ selection.item.item.name }}</td>
+                       <td>{{ selection.size.value }}</td>
+                       <td>{{ selection.toppings.all|length }}</td>
+                       <td>${{ selection.price }}</td>
+                   </tr>
+               {% endfor %}
+           </table>
+           <b id="order-total">Total: ${{ total_cost }} </b>
 
-            <div>
-                <form id="orderForm" action="{% url 'order_items_in_cart' %}" method="post">
-                    {% csrf_token %}
-                    <h4>{{ message }}</h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Provide An Email Address" name="receipt_email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" id="order">Click Here to Order Your Food!</button>
-                    </div> <!-- form-group// -->
-                </form>
-            </div>
+           <div>
+               <form id="orderForm" action="{% url 'order_items_in_cart' %}" method="post">
+                   {% csrf_token %}
+                   <h4> Are you ready to checkout?</h4>
+                   <div class="form-group">
+                       <div class="input-group">
+                           <input class="form-control" type="text" placeholder="Provide An Email Address" name="receipt_email">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <button class="btn btn-primary" id="order">Click Here to Order Your Food!</button>
+                   </div> <!-- form-group// -->
+               </form>
+           </div>
 
-        {% else %}
-            <h4 class="no-cart">Uh oh, you haven't selected any items yet!</h4>
-            <h4 class="no-cart"> Don't miss out, we have delicious food on our menu!</h4>
-        {% endif %}
+       {% elif order_placed %}
+           <h4 class="cart-font"> Thanks for your order, {{ user }} </h4>
+           <h4 class="cart-font"> Just hang tight, your food will be ready soon! </h4>
 
-    </div>
+       {% else %}
+           <h4 class="cart-font">Uh oh, you haven't selected any items yet!</h4>
+           <h4 class="cart-font"> Don't miss out, we have delicious food on our menu!</h4>
+       {% endif %}
 
-    <div class="container" id="back-to-menu">
-        <a href="{% url 'index' %}" class="navbar-brand mr-0">
-           <i class="fa fa-arrow-left"></i> Go Back to Menu
-        </a>
-    </div>
+   </div>
+
+   <div class="container" id="back-to-menu">
+       <a href="{% url 'index' %}" class="navbar-brand mr-0">
+          <i class="fa fa-arrow-left"></i> Go Back to Menu
+       </a>
+   </div>
 
 {% endblock %}

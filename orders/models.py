@@ -83,15 +83,16 @@ class Order(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     cart_created = models.DateTimeField()
-    order_placed = models.DateTimeField(null=True)
-    order_fullfilled = models.DateTimeField(null=True)
+    order_placed = models.DateTimeField(null=True, blank=True)
+    order_fullfilled = models.DateTimeField(null=True, blank=True)
     items = models.ManyToManyField(CustomerItem, related_name="cart")
     status = models.CharField(max_length=15, choices=STATUSES, default=CART)
+    final_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         if self.order_fullfilled:
-            return f"Order {self.status} (User: {self.user}, Order Fullfilled: {self.order_fullfilled})"
+            return f"Order in {self.status} (User: {self.user}, Order Fullfilled: {self.order_fullfilled})"
         if self.order_placed:
-            return f"Order {self.status} (User: {self.user}, Order Placed: {self.order_placed})"
+            return f"Order in {self.status} (User: {self.user}, Order Placed: {self.order_placed})"
         else:
-            return f"Order {self.status} (User: {self.user}, Cart Created: {self.cart_created})"
+            return f"Order in {self.status} (User: {self.user}, Cart Created: {self.cart_created})"

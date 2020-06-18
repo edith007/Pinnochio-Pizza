@@ -118,4 +118,9 @@ def place_order(username):
     active_cart = get_active_cart(username)
     active_cart.status = 'progress'
     active_cart.order_placed = timezone.now()
+    active_cart.final_cost = calculate_total_cost(active_cart.items.all())
     active_cart.save()
+
+
+def get_all_orders():
+    return Order.objects.all()

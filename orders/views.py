@@ -88,7 +88,14 @@ def add_item_to_cart(request):
 
 
 def view_all_orders(request):
-    return render(request, 'orders/all_orders.html', {})
+
+    cart_items = get_items_in_cart(request.user.username)
+    context = {
+        'is_admin': user_is_superuser(request.user.username),
+        'items_in_cart': len(get_items_in_cart(request.user.username)) if cart_items else 0,
+        'orders': get_all_orders()
+    }
+    return render(request, 'orders/all_orders.html', context)
 
 
 def view_cart(request):
@@ -98,8 +105,8 @@ def view_cart(request):
         'is_admin': user_is_superuser(request.user.username),
         'items': cart_items,
         'total_cost': calculate_total_cost(cart_items) if cart_items else None,
-        'message': 'Are you ready to checkout?',
-        'items_in_cart': len(get_items_in_cart(request.user.username)) if cart_items else 0
+        'items_in_cart': len(get_items_in_cart(request.user.username)) if cart_items else 0,
+        'order_placed': False,
     }
     return render(request, 'orders/cart.html', context)
 
@@ -107,7 +114,13 @@ def view_cart(request):
 def order_items_in_cart(request):
 
     place_order(request.user.username)
-    return HttpResponseRedirect(reverse('index'))
+
+    context = {
+        'user': request.user.username,
+        'is_admin': user_is_superuser(request.user.username),
+        'order_placed': True,
+    }
+    return render(request, 'orders/cart.html', context)
 
 
 def logout_view(request):

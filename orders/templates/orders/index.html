@@ -25,7 +25,7 @@
                 <form action="{% url 'view_cart' %}" method="post">
                     {% csrf_token %}
                     <button class="btn shopping-cart">
-                        {% if items_in_cart > 0 %}
+                        {% if items_in_cart and items_in_cart > 0 %}
                             <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
                         {% else %}
                             <i class="fa fa-shopping-cart"></i>
