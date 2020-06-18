@@ -22,7 +22,7 @@ SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs50pizza.azurewebsites.net','localhost','pinnochio-pizza.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -45,7 +45,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'pizza.urls'
@@ -72,25 +71,13 @@ WSGI_APPLICATION = 'pizza.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-#DATABASES = {
-#  'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'd8rae2qqk5dtga',
-        'USER' : 'nsfcozahonkbpg',
-        'PASSWORD' : '8d08ce05f4cb4d61c664fa0556e8946aa3537bd521565dcd762092d957fe1957',
-        'HOST' : 'ec2-18-210-214-86.compute-1.amazonaws.com',
-        'PORT' : '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
-DATABASE_URL = 'postgres://nsfcozahonkbpg:8d08ce05f4cb4d61c664fa0556e8946aa3537bd521565dcd762092d957fe1957@ec2-18-210-214-86.compute-1.amazonaws.com:5432/d8rae2qqk5dtga'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -128,13 +115,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
-django_heroku.settings(locals())
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
