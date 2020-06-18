@@ -45,8 +45,8 @@
 
 {% block body %}
     <div id="menu-container">
-        <h2 id="order-header">Place An Order</h2>
-        <p id="instructions">Select the dropdown of the item of interest, fill in selections, and click 'Add to Cart'!</p>
+        <h2 id="order-header">* Place An Order *</h2>
+        <p class="instructions">Select the dropdown of the item of interest, fill in selections, and click 'Add to Cart'!</p>
         <hr class="header-underscore">
 
         {% for category, menu_options in menu.items %}
@@ -127,4 +127,3 @@
 
 
     </div>
-{% endblock %}
