@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .models import Order, Topping, CustomerItem, MenuItem, MenuSection
 from .database import *
+from django.core.mail import send_mail
+from django.conf import settings
+from random import randint
 
 
 def index(request):
@@ -114,6 +115,7 @@ def view_cart(request):
 def order_items_in_cart(request):
 
     place_order(request.user.username)
+    send_confirmation_email(request.POST['receipt_email'])
 
     context = {
         'user': request.user.username,
@@ -126,3 +128,27 @@ def order_items_in_cart(request):
 def logout_view(request):
     logout(request)
     return render(request, 'orders/login.html', {'login_message': 'Logged out.'})
+
+
+def send_confirmation_email(user_email):
+
+    print("Attempting to send email!")
+
+    subject = "Pinnochio’s Pizza & Subs Order Confirmation"
+    message = f""" Hello there!
+                   \nThis is an automated message confirming your recently placed order with us (order #{randint(100, 999)}).
+                   \nThank you for ordering from us! Come back again soon!
+                   \n Stay saucy,
+                   \n Pinnochio's Email Bot
+               """
+
+    sender = settings.EMAIL_HOST_USER
+    recipient_list = [user_email, ]
+
+    send_mail(
+        subject=subject,
+        message=message,
+        from_email=sender,
+        recipient_list=recipient_list,
+        fail_silently=False
+    )
