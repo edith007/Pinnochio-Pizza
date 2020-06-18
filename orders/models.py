@@ -56,29 +56,42 @@ class MenuItem(models.Model):
 
 
 class CustomerItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     category = models.ForeignKey(MenuSection, on_delete=models.CASCADE)
-    name = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE, blank=True, null=True)
     toppings = models.ManyToManyField(Topping, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)  # support USD$
 
     def __str__(self):
-        return f"{self.category} - {self.name} (size: {self.size}, price: ${self.price})"
+        return f"{self.item}, price: ${self.price}, belonging to {self.user}"
 
 
 class Order(models.Model):
 
+    CART = 'cart'
+    PROGRESS = 'progress'
+    TRANSIT = 'transit'
+    COMPLETE = 'complete'
+
     STATUSES = (
-        ('cart', 'Cart'),
-        ('progress', 'In Progress'),
-        ('oiw', 'On it\'s Way')
+        (CART, 'In Cart'),
+        (PROGRESS, 'In Progress'),
+        (TRANSIT, 'On it\'s Way'),
+        (COMPLETE, 'Complete')
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
-    datetime_placed = models.DateTimeField()
-    datetime_fullfilled = models.DateTimeField(default=None, blank=True)
+    cart_created = models.DateTimeField()
+    order_placed = models.DateTimeField(null=True)
+    order_fullfilled = models.DateTimeField(null=True)
     items = models.ManyToManyField(CustomerItem, related_name="cart")
-    status = models.CharField(max_length=10, choices=STATUSES, default='cart')
+    status = models.CharField(max_length=15, choices=STATUSES, default=CART)
 
     def __str__(self):
-        return f"Order (User: {self.user}, Time: {self.datetime_placed})"
+        if self.order_fullfilled:
+            return f"Order {self.status} (User: {self.user}, Order Fullfilled: {self.order_fullfilled})"
+        if self.order_placed:
+            return f"Order {self.status} (User: {self.user}, Order Placed: {self.order_placed})"
+        else:
+            return f"Order {self.status} (User: {self.user}, Cart Created: {self.cart_created})"

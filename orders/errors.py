@@ -1,0 +1,2 @@
+class ItemToCartException(Exception):
+    pass

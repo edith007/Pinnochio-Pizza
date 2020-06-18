@@ -15,11 +15,15 @@
         <ul class="navbar-nav ml-auto">
             <li>
                 <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
                     <button class="btn" id="logout" type="submit">Logout</button>
                 </form>
             </li>
             <li>
-                <button class="btn shopping-cart"><i class="fa fa-shopping-cart"></i></button>
+                <form action="{% url 'view_cart' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn shopping-cart"><i class="fa fa-shopping-cart"></i></button>
+                </form>
             </li>
         </ul>
     </div>
@@ -28,7 +32,6 @@
 {% block body %}
     <div id="menu-container">
         <h2 id="order-header">Place An Order</h2>
-        <hr class="header-underscore">
         <p id="instructions">Select the dropdown of the item of interest, fill in selections, and click 'Add to Cart'!</p>
         <hr class="header-underscore">
 
@@ -41,52 +44,60 @@
                     <div class="panel-group accordion">
                         <div class="panel panel-default">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#{{ option.category.name }}-{{ option.item.name }}">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#{{ option.category.name }}_{{ option.item.name }}">
                                     <i class="fa fa-angle-down"></i>
                                     {{ option.item.name }}
                                 </a>
                             </h4>
-                            <div id="{{ option.category.name }}-{{ option.item.name }}" class="panel-collapse collapse in">
+                            <div id="{{ option.category.name }}_{{ option.item.name }}" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <form class="itemForm" action="{% url 'add_item_to_cart' %}" method="post">
+                                        {% csrf_token %}
 
-                                        <div class="input-group">
-                                            <input type="hidden" value={{ option.category.name }}-{{ option.item.name }} name="item">
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="hidden" value="{{ option.category.name }}_{{ option.item.name }}" name="item">
+                                            </div>
                                         </div>
 
-                                        <b class="question"> (1) Select a size: </b>
-                                        <p>
+                                        <div class="form-group">
+                                            <b class="question"> (1) Select a size: </b>
+                                            <p>
 
-                                            {% for price in option.prices.all %}
-                                                <label class="radio">
-                                                    <input type="radio" name="size-price">
-                                                    {{ price.size.value }} (${{ price.base_price }})
-                                                </label>
-                                            {% endfor %}
+                                                {% for price in option.prices.all %}
+                                                    <label class="radio">
+                                                        <input type="radio" name="size" value="{{ price.size.value }}">
+                                                        {{ price.size.value }} (${{ price.base_price }})
+                                                    </label>
+                                                {% endfor %}
 
-                                        </p>
+                                            </p>
+                                        </div>
 
                                         {% if option.number_of_possible_toppings > 0 %}
-                                            <b class="question"> (2) Select toppings (+${{ option.price_per_additional_topping }}/each): </b>
-                                            <div>
+                                            <div class="form-group">
+                                                <b class="question"> (2) Select toppings (+${{ option.price_per_additional_topping }}/each): </b>
+                                                <div>
 
-                                                {% with ''|center:option.number_of_possible_toppings as range %}
-                                                {% for _ in range %}
-                                                    <select class="topping-select">
-                                                        <option value="none" name="none" selected="selected">--</option>
+                                                    {% with ''|center:option.number_of_possible_toppings as range %}
+                                                    {% for _ in range %}
+                                                        <select class="topping-select" name="toppings">
+                                                            <option value="none" name="none" selected="selected">--</option>
 
-                                                        {% for topping in option.available_topping_options.all %}
-                                                            <option value="{{ topping.type }}" name="{{ topping.type }}">{{ topping.type }}</option>
-                                                        {% endfor %}
+                                                            {% for topping in option.available_topping_options.all %}
+                                                                <option value="{{ topping.type }}" name="{{ topping.type }}">{{ topping.type }}</option>
+                                                            {% endfor %}
 
-                                                    </select>
-                                                {% endfor %}
-                                                {% endwith %}
+                                                        </select>
+                                                    {% endfor %}
+                                                    {% endwith %}
 
+                                                </div>
                                             </div>
                                         {% endif %}
 
-                                        <div>
+                                        <div class="form-group">
                                             <button type="submit" class="add-to-cart btn">Add to Cart</button>
                                         </div>
 
@@ -98,8 +109,8 @@
                 {% endfor %}
 
             </div>
-            <hr class="section-underscore">
         {% endfor %}
+
 
     </div>
 {% endblock %}

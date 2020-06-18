@@ -50,12 +50,12 @@ extra_cheese.save()   # sub only
 
 # ------ Add Menu Sections to Database ------ #
 
-regular_pizza = MenuSection(section="Regular Pizza")
-sicilian_pizza = MenuSection(section="Sicilian Pizza")
-subs = MenuSection(section="Subs")
-pasta = MenuSection(section="Pasta")
-salads = MenuSection(section="Salads")
-platters = MenuSection(section="Dinner Platters")
+regular_pizza = MenuSection(name="Regular Pizza")
+sicilian_pizza = MenuSection(name="Sicilian Pizza")
+subs = MenuSection(name="Subs")
+pasta = MenuSection(name="Pasta")
+salads = MenuSection(name="Salads")
+platters = MenuSection(name="Dinner Platters")
 
 regular_pizza.save()
 sicilian_pizza.save()
@@ -109,7 +109,7 @@ price_large.save()
 
 regular_pizza_1 = MenuItem(
     category=regular_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=1
 )
 
@@ -133,7 +133,7 @@ price_large.save()
 
 regular_pizza_2 = MenuItem(
     category=regular_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=2
 )
 
@@ -157,7 +157,7 @@ price_large.save()
 
 regular_pizza_3 = MenuItem(
     category=regular_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=3
 )
 
@@ -180,7 +180,7 @@ price_large.save()
 
 regular_pizza_4 = MenuItem(
     category=regular_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=0
 )
 
@@ -202,7 +202,7 @@ price_large.save()
 
 sicilian_pizza_0 = MenuItem(
     category=sicilian_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=0
 )
 sicilian_pizza_0.save()
@@ -222,7 +222,7 @@ price_large.save()
 
 silician_pizza_1 = MenuItem(
     category=sicilian_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=1
 )
 
@@ -246,7 +246,7 @@ price_large.save()
 
 sicilian_pizza_2 = MenuItem(
     category=sicilian_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=2
 )
 
@@ -270,7 +270,7 @@ price_large.save()
 
 sicilian_pizza_3 = MenuItem(
     category=sicilian_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=3
 )
 
@@ -293,7 +293,7 @@ price_large.save()
 
 sicilian_pizza_4 = MenuItem(
     category=sicilian_pizza,
-    name=item,
+    item=item,
     number_of_possible_toppings=0
 )
 
@@ -315,7 +315,7 @@ price_large.save()
 
 cheese_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -337,7 +337,7 @@ price_large.save()
 
 italian_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -359,7 +359,7 @@ price_large.save()
 
 ham_cheese_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -381,7 +381,7 @@ price_large.save()
 
 meatball_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -403,7 +403,7 @@ price_large.save()
 
 tuna_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -425,7 +425,7 @@ price_large.save()
 
 turkey_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -447,7 +447,7 @@ price_large.save()
 
 chick_parm_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -469,7 +469,7 @@ price_large.save()
 
 eggplant_parm_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -491,7 +491,7 @@ price_large.save()
 
 steak_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -513,7 +513,7 @@ price_large.save()
 
 steak_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=4,
     price_per_additional_topping=0.50
 )
@@ -534,7 +534,7 @@ price_large.save()
 
 sausage_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -556,7 +556,7 @@ price_large.save()
 
 hamburger_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -578,7 +578,7 @@ price_large.save()
 
 cheeseburger_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -600,7 +600,7 @@ price_large.save()
 
 fried_chick_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -622,7 +622,7 @@ price_large.save()
 
 veggie_sub = MenuItem(
     category=subs,
-    name=item,
+    item=item,
     number_of_possible_toppings=1,
     price_per_additional_topping=0.50
 )
@@ -644,7 +644,7 @@ price_one_size.save()
 
 ziti_mozz = MenuItem(
     category=pasta,
-    name=item
+    item=item
 )
 ziti_mozz.save()
 ziti_mozz.available_sizes.add(one_size)
@@ -660,7 +660,7 @@ price_one_size.save()
 
 ziti_meatballs = MenuItem(
     category=pasta,
-    name=item
+    item=item
 )
 ziti_meatballs.save()
 ziti_meatballs.available_sizes.add(one_size)
@@ -675,7 +675,7 @@ price_one_size.save()
 
 ziti_chicken = MenuItem(
     category=pasta,
-    name=item
+    item=item
 )
 ziti_chicken.save()
 ziti_chicken.available_sizes.add(one_size)
@@ -693,7 +693,7 @@ price_one_size.save()
 
 garden_salad = MenuItem(
     category=salads,
-    name=item
+    item=item
 )
 garden_salad.save()
 garden_salad.available_sizes.add(one_size)
@@ -709,7 +709,7 @@ price_one_size.save()
 
 greek_salad = MenuItem(
     category=salads,
-    name=item
+    item=item
 )
 greek_salad.save()
 greek_salad.available_sizes.add(one_size)
@@ -725,7 +725,7 @@ price_one_size.save()
 
 antipasto = MenuItem(
     category=salads,
-    name=item
+    item=item
 )
 antipasto.save()
 antipasto.available_sizes.add(one_size)
@@ -741,7 +741,7 @@ price_one_size.save()
 
 tuna_salad = MenuItem(
     category=salads,
-    name=item
+    item=item
 )
 tuna_salad.save()
 tuna_salad.available_sizes.add(one_size)
@@ -749,7 +749,6 @@ tuna_salad.prices.add(price_one_size)
 
 
 # --- Dinner Platter category --- #
-
 # - Garden Salad Platter - #
 item = Item(name="Garden Salad Platter")
 item.save()
@@ -761,7 +760,7 @@ price_large.save()
 
 garden_salad_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 garden_salad_platter.save()
@@ -779,7 +778,7 @@ price_large.save()
 
 greek_salad_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 greek_salad_platter.save()
@@ -798,7 +797,7 @@ price_large.save()
 
 antipasto_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 antipasto_platter.save()
@@ -817,7 +816,7 @@ price_large.save()
 
 baked_ziti_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 baked_ziti_platter.save()
@@ -836,7 +835,7 @@ price_large.save()
 
 meatball_parm_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 meatball_parm_platter.save()
@@ -854,7 +853,7 @@ price_large.save()
 
 chicken_parm_platter = MenuItem(
     category=platters,
-    name=item
+    item=item
 )
 
 chicken_parm_platter.save()

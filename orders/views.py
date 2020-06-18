@@ -4,9 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Order, Topping, CustomerItem, MenuItem, MenuSection
-from .database import MenuDB
-
-menu = MenuDB()
+from .database import *
 
 
 def index(request):
@@ -16,12 +14,10 @@ def index(request):
 
     # get the information required.
     menu_objects = dict()
-    for category in menu.categories:
-        menu_objects[category.name] = menu.get_items_by_category(category.name)
+    for category in get_menu_catgories():
+        menu_objects[category.name] = get_items_by_category(category.name)
 
-    context = {'menu': menu_objects}
-    print(context['menu'])
-    return render(request, 'orders/index.html', context)
+    return render(request, 'orders/index.html', {'menu': menu_objects})
 
 
 def login_view(request):
@@ -47,10 +43,10 @@ def registration_attempt(request):
 
     submitted_username = request.POST['username']
 
-    if User.objects.filter(username=submitted_username).exists():
+    if username_already_exists(submitted_username):
         return render(request, 'orders/register.html', {'registration_message': 'Username already exists.'})
 
-    User.objects.create_user(
+    create_new_user(
         username=request.POST['username'],
         email=request.POST['email'],
         password=request.POST['password'],
@@ -63,7 +59,35 @@ def registration_attempt(request):
 
 
 def add_item_to_cart(request):
-    return None
+
+    username = request.user.username
+    category = request.POST['item'].split("_")[0]
+    item_name = request.POST['item'].split("_")[1]
+    size = request.POST['size']
+    toppings = request.POST.getlist('toppings')
+
+    print(f"Adding new item to {username}'s cart: {category}, {item_name} (Size: {size}, Toppings: {toppings})")
+    customer_item = create_new_customer_item(
+        username=username,
+        category=category,
+        item_name=item_name,
+        size=size,
+        toppings=toppings
+    )
+    add_item_to_customer_cart(username, customer_item)
+
+    return HttpResponseRedirect(reverse('index'))
+
+
+def view_cart(request):
+
+    cart_items = get_items_in_cart_by_user(request.user.username)
+    context = {
+        'items': cart_items,
+        'total_cost': calculate_total_cost(cart_items),
+        'message': 'Are you ready to checkout?'
+    }
+    return render(request, 'orders/cart.html', context)
 
 
 def logout_view(request):
