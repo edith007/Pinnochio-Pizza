@@ -10,7 +10,7 @@
 
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
-            <a href="{% url 'index' %}" class="navbar-brand mr-0" id="title">Welcome to Pinnochio’s Pizza & Subs!</a>
+            <a href="{% url 'index' %}" class="navbar-brand mr-0" id="title"></a>
         </ul>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -28,7 +28,7 @@
 {% block body %}
 
     <div class="center_box" id="login_container">
-        <h4>Login</h4>
+        <h4 class="login-header">Login</h4>
         <h5>{{ login_message }}</h5>
         <hr>
         <form action="{% url 'login' %}" method="post">
@@ -56,7 +56,7 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary" type="submit">Login</button>
+                <button class="btn btn-primary login-btn" type="submit">Login</button>
             </div>
         </form>
     </div>

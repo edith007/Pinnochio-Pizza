@@ -96,3 +96,5 @@ class Order(models.Model):
             return f"Order in {self.status} (User: {self.user}, Order Placed: {self.order_placed})"
         else:
             return f"Order in {self.status} (User: {self.user}, Cart Created: {self.cart_created})"
+
+

@@ -749,6 +749,7 @@ tuna_salad.prices.add(price_one_size)
 
 
 # --- Dinner Platter category --- #
+
 # - Garden Salad Platter - #
 item = Item(name="Garden Salad Platter")
 item.save()
@@ -859,3 +860,4 @@ chicken_parm_platter = MenuItem(
 chicken_parm_platter.save()
 chicken_parm_platter.available_sizes.add(small, large)
 chicken_parm_platter.prices.add(price_small, price_large)
+

@@ -1,4 +1,3 @@
-
 from django.test import TestCase   # import the extension of unittest framework
 from .models import *
 from django.utils import timezone
@@ -7,11 +6,11 @@ from .database import *
 
 class OrdersTestCase(TestCase):
 
-    USER = 'admin'
+    USER = 'admin' # always use admin as user
 
     def setUp(self):
-        # a function built-in to unittest/django framework that runs before any individual test
 
+        # setup user
         admin = User.objects.create_user(
             username=self.USER,
             email='admin@admin.org',
@@ -34,7 +33,7 @@ class OrdersTestCase(TestCase):
         small = Size.objects.create(value="Small")
         large = Size.objects.create(value="Large")
 
-        # CREATE ITEMS
+        # ------------------------------ CREATE ITEMS -----------------------------  #
 
         # -- 1 Topping Pizza-- #
         item = Item.objects.create(name="Cheese Pizza - 1 Topping")
@@ -88,6 +87,7 @@ class OrdersTestCase(TestCase):
             price=8.45
         )
         customer_item2.toppings.add(extra_cheese)
+        # ------------------------------  ITEMS -----------------------------  #
 
     def test_menu_item_count(self):
         a = MenuItem.objects.all()
@@ -128,7 +128,7 @@ class OrdersTestCase(TestCase):
 
     def test_user_has_open_cart_true(self):
 
-        order = Order.objects.create(
+        Order.objects.create(
             user=User.objects.get(username=self.USER),
             cart_created=timezone.now()
         )
@@ -138,7 +138,7 @@ class OrdersTestCase(TestCase):
 
     def test_create_new_customer_item(self):
 
-        customer_item = create_new_customer_item(
+        create_new_customer_item(
             username=self.USER,
             category='Subs',
             item_name='Italian Sub',
@@ -159,9 +159,18 @@ class OrdersTestCase(TestCase):
         expected = 1
         self.assertEqual(result, expected)
 
+    def test_add_item_to_customer_cart_total_cost(self):
+
+        customer_item = CustomerItem.objects.first()
+        add_item_to_customer_cart(self.USER, customer_item)
+
+        result = float(Order.objects.get(user__username=self.USER).total_cost)
+        expected = 13.20
+        self.assertEqual(result, expected)
+
     def test_place_order(self):
 
-        # create an order.
+        # create an Order() to test on
         customer_item = CustomerItem.objects.first()
         add_item_to_customer_cart(self.USER, customer_item)
         place_order(self.USER)
@@ -172,3 +181,4 @@ class OrdersTestCase(TestCase):
         result = (in_progress, in_cart)
         expected = (1, 0)
         self.assertEqual(result, expected)
+

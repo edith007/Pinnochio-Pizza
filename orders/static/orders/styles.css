@@ -1,3 +1,4 @@
+/** -- General Application Formatting -- **/
 body {
     font-family: "Monaco", sans-serif;
     background-color: #b21807;
@@ -11,7 +12,7 @@ h2 {
 }
 
 h4 {
-    font-size: 20px;
+    font-size: 25px;
     color: #b21807;
 }
 
@@ -24,7 +25,7 @@ a {
     font-size: 16px;
 }
 
-/***  Button Formatting ***/
+/***  ---- Button Formatting ---- ***/
 a:hover {
     color: black;
 }
@@ -63,7 +64,7 @@ button:hover {
 }
 
 
-/** Navigation Bar **/
+/** --- Navigation Bar  ---- **/
 
 @media (min-width: 900px) {
     #title::before {
@@ -88,11 +89,11 @@ button:hover {
 }
 
 
-/*** Login ***/
+/*** ---- Login Page Configurations ---- ***/
 
 #login_container {
     background-color: white;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
     font-size: 15px;
 }
@@ -109,16 +110,24 @@ button:hover {
     margin: auto;
 }
 
+.login-header {
+    font-color: #b21807;
+}
 
-/** Menu Page **/
+.login-btn {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+/** ---- Menu Page ---- **/
 
 #menu-container {
     background-color: white;
     margin: auto;
     padding-left: 20px;
     padding-right: 20px;
-    width: 70%;
-    max-width: 500px;
+    width: 80%;
+    max-width: 600px;
     margin-top: 5%;
     text-align: center;
     border: 1px solid black;
@@ -177,7 +186,7 @@ button:hover {
     text-align-last: center;
 }
 
-/***  Elements for 'Cart' and 'All Orders' Pages ***/
+/*** ---- Elements for 'Cart' and 'All Orders' Pages ---- ***/
 
 #cart-container, #order-container {
     background-color: white;
@@ -207,6 +216,9 @@ button:hover {
     margin:20px;
 }
 
+
+/* Table for displaying items in cart and placed orders */
+
 table {
     align: center;
     border-bottom: 1px solid lightgrey;
@@ -231,3 +243,4 @@ input[type=text]:focus{
   outline: 2px solid black;
   box-shadow: 0 0 0 1px black;
 }
+
