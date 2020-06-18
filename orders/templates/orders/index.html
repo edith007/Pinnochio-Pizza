@@ -13,16 +13,30 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
+            {% if is_admin %}
+                <li>
+                    <form action="{% url 'view_all_orders' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" id="all_orders" type="submit">View All Orders</button>
+                    </form>
+                </li>
+            {% endif %}
+            <li>
+                <form action="{% url 'view_cart' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn shopping-cart">
+                        {% if items_in_cart > 0 %}
+                            <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
+                        {% else %}
+                            <i class="fa fa-shopping-cart"></i>
+                        {% endif %}
+                    </button>
+                </form>
+            </li>
             <li>
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button class="btn" id="logout" type="submit">Logout</button>
-                </form>
-            </li>
-            <li>
-                <form action="{% url 'view_cart' %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn shopping-cart"><i class="fa fa-shopping-cart"></i></button>
                 </form>
             </li>
         </ul>

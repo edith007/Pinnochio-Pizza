@@ -1,7 +1,7 @@
 {% extends "orders/template.html" %}
 
 {% block title %}
-    Cart
+    All Orders
 {% endblock %}
 
 {% block navbar %}
@@ -25,11 +25,7 @@
                 <form action="{% url 'view_cart' %}" method="post">
                     {% csrf_token %}
                     <button class="btn shopping-cart">
-                        {% if items_in_cart > 0 %}
-                            <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
-                        {% else %}
-                            <i class="fa fa-shopping-cart"></i>
-                        {% endif %}
+                        <i class="fa fa-shopping-cart"></i> ({{ items_in_cart }})
                     </button>
                 </form>
             </li>
@@ -46,55 +42,52 @@
 
 {% block body %}
 
-    <div id="cart-container">
-        <h2 id="order-header">Your Cart <i class="fa fa-shopping-cart"></i></h2>
+    <div class="order-container">
+        <h2 id="order-header">All Orders</h2>
+        <hr class="header-underscore">
 
         {% if items %}
+            <p>Here are your current items:</p>
+
             <table class="table">
                 <tr>
                     <th>Item</th>
-                    <th>Size</th>
-                    <th>Toppings</th>
                     <th>Cost</th>
                 </tr>
 
-                {% for selection in items %}
+                {% for item in items %}
                     <tr>
-                        <td>{{ selection.item.item.name }}</td>
-                        <td>{{ selection.size.value }}</td>
-                        <td>{{ selection.toppings.all|length }}</td>
-                        <td>${{ selection.price }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
                     </tr>
                 {% endfor %}
             </table>
-            <b id="order-total">Total: ${{ total_cost }} </b>
+            <p>Total: {{ total_cost }} </p>
 
             <div>
-                <form id="orderForm" action="{% url 'order_items_in_cart' %}" method="post">
+                <p>{{ message }}</p>
+
+                <form class="itemForm" action="{% url 'order_items_in_cart' %}" method="post">
                     {% csrf_token %}
-                    <h4>{{ message }}</h4>
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Provide An Email Address" name="receipt_email">
+                            <input class="form-control" placeholder="Please Provide Email Address for Receipt" name="receipt_email">
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" id="order">Click Here to Order Your Food!</button>
+                        <button class="btn btn-primary">Order Your Food!</button>
                     </div> <!-- form-group// -->
                 </form>
             </div>
 
         {% else %}
-            <h4 class="no-cart">Uh oh, you haven't selected any items yet!</h4>
-            <h4 class="no-cart"> Don't miss out, we have delicious food on our menu!</h4>
+            <p>You haven't selected any items yet. Don't miss out, we have delicious items on our menu!</p>
         {% endif %}
 
     </div>
 
-    <div class="container" id="back-to-menu">
-        <a href="{% url 'index' %}" class="navbar-brand mr-0">
-           <i class="fa fa-arrow-left"></i> Go Back to Menu
-        </a>
+    <div>
+        <a href="{% url 'index' %}" class="navbar-brand mr-0">Go back to Menu Page.</a>
     </div>
 
 {% endblock %}

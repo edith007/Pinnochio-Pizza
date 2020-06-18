@@ -12,12 +12,20 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'orders/login.html', {'message': None})
 
-    # get the information required.
+    # get the menu items from the database
     menu_objects = dict()
     for category in get_menu_catgories():
         menu_objects[category.name] = get_items_by_category(category.name)
 
-    return render(request, 'orders/index.html', {'menu': menu_objects})
+    # get any items currently in the user's cart
+    cart_items = get_items_in_cart(request.user.username)
+
+    context = {
+        'is_admin': user_is_superuser(request.user.username),
+        'menu': menu_objects,
+        'items_in_cart': len(cart_items) if cart_items else 0
+    }
+    return render(request, 'orders/index.html', context)
 
 
 def login_view(request):
@@ -79,15 +87,27 @@ def add_item_to_cart(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+def view_all_orders(request):
+    return render(request, 'orders/all_orders.html', {})
+
+
 def view_cart(request):
 
-    cart_items = get_items_in_cart_by_user(request.user.username)
+    cart_items = get_items_in_cart(request.user.username)
     context = {
+        'is_admin': user_is_superuser(request.user.username),
         'items': cart_items,
-        'total_cost': calculate_total_cost(cart_items),
-        'message': 'Are you ready to checkout?'
+        'total_cost': calculate_total_cost(cart_items) if cart_items else None,
+        'message': 'Are you ready to checkout?',
+        'items_in_cart': len(get_items_in_cart(request.user.username)) if cart_items else 0
     }
     return render(request, 'orders/cart.html', context)
+
+
+def order_items_in_cart(request):
+
+    place_order(request.user.username)
+    return HttpResponseRedirect(reverse('index'))
 
 
 def logout_view(request):

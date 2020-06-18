@@ -29,6 +29,10 @@ def get_user_by_username(username):
     return User.objects.get(username=username)
 
 
+def user_is_superuser(username):
+    return True if User.objects.filter(is_superuser=True).filter(username=username) else False
+
+
 def get_menu_section_by_name(section_name):
     return MenuSection.objects.get(name=section_name)
 
@@ -49,9 +53,13 @@ def user_has_an_open_cart(username):
     return True if Order.objects.filter(user__username=username).filter(status='cart') else False
 
 
-def get_items_in_cart_by_user(username):
-    order = Order.objects.filter(user__username=username).filter(status="cart")
-    return order.items.all()
+def get_active_cart(username):
+    return Order.objects.filter(user__username=username).filter(status="cart").first()
+
+
+def get_items_in_cart(username):
+    order = Order.objects.filter(user__username=username).filter(status="cart").first()
+    return order.items.all() if order else None
 
 
 def calculate_customer_item_price(category, item_name, size, toppings):
@@ -64,6 +72,11 @@ def calculate_customer_item_price(category, item_name, size, toppings):
 
 
 def calculate_total_cost(customer_items):
+    """
+    Calculates the current total cost of all items in cart (excluding taxes).
+    :param customer_items: A QuerySet (list) containing CustomerItem() objects
+    :return: integer representing total cost
+    """
 
     total_cost = 0
     for customer_item in customer_items:
@@ -90,15 +103,19 @@ def create_new_customer_item(username, category, item_name, size, toppings):
 
 def add_item_to_customer_cart(username, customer_item):
 
-    print("Adding item to customer cart...")
-
     if user_has_an_open_cart(username):
-        print(f"{username} has an open cart.")
         order = Order.objects.filter(user__username=username).filter(status="cart")
     else:
-        print(f"{username} does not have an open cart yet.")
         order = Order.objects.create(
             user=get_user_by_username(username),
             cart_created=timezone.now()
         )
     order.items.add(customer_item)
+
+
+def place_order(username):
+
+    active_cart = get_active_cart(username)
+    active_cart.status = 'progress'
+    active_cart.order_placed = timezone.now()
+    active_cart.save()
