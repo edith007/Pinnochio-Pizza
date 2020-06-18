@@ -64,7 +64,7 @@ class CustomerItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)  # support USD$
 
     def __str__(self):
-        return f"{self.item}, price: ${self.price}, belonging to {self.user}"
+        return f"{self.item} (${self.price})"
 
 
 class Order(models.Model):
@@ -87,7 +87,7 @@ class Order(models.Model):
     order_fullfilled = models.DateTimeField(null=True, blank=True)
     items = models.ManyToManyField(CustomerItem, related_name="cart")
     status = models.CharField(max_length=15, choices=STATUSES, default=CART)
-    final_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         if self.order_fullfilled:

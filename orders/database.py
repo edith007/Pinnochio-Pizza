@@ -104,22 +104,24 @@ def create_new_customer_item(username, category, item_name, size, toppings):
 def add_item_to_customer_cart(username, customer_item):
 
     if user_has_an_open_cart(username):
-        order = Order.objects.filter(user__username=username).filter(status="cart")
+        cart = Order.objects.filter(user__username=username).filter(status="cart").first()
     else:
-        order = Order.objects.create(
+        cart = Order.objects.create(
             user=get_user_by_username(username),
             cart_created=timezone.now()
         )
-    order.items.add(customer_item)
+    cart.items.add(customer_item)
+    cart.final_cost = calculate_total_cost(cart.items.all())
+    cart.save()
 
 
 def place_order(username):
 
-    active_cart = get_active_cart(username)
-    active_cart.status = 'progress'
-    active_cart.order_placed = timezone.now()
-    active_cart.final_cost = calculate_total_cost(active_cart.items.all())
-    active_cart.save()
+    cart = get_active_cart(username)
+    cart.status = 'progress'
+    cart.order_placed = timezone.now()
+    cart.final_cost = calculate_total_cost(cart.items.all())
+    cart.save()
 
 
 def get_all_orders():

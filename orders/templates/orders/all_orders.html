@@ -13,6 +13,12 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
+            <li>
+                <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn" id="menu" type="submit">Back to Menu</button>
+                </form>
+            </li>
             {% if is_admin %}
                 <li>
                     <form action="{% url 'view_all_orders' %}" method="post">
@@ -21,6 +27,12 @@
                     </form>
                 </li>
             {% endif %}
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn" id="logout" type="submit">Logout</button>
+                </form>
+            </li>
             <li>
                 <form action="{% url 'view_cart' %}" method="post">
                     {% csrf_token %}
@@ -31,12 +43,6 @@
                             <i class="fa fa-shopping-cart"></i>
                         {% endif %}
                     </button>
-                </form>
-            </li>
-            <li>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn" id="logout" type="submit">Logout</button>
                 </form>
             </li>
         </ul>
@@ -66,7 +72,7 @@
                         <td>{{ order.user.username }}</td>
                         <td>{{ order.order_placed|date:'Y-m-d' }}</td>
                         <td>{{ order.items.all|length }}</td>
-                        <td> ${{ order.final_cost }}</td>
+                        <td> ${{ order.total_cost }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -75,12 +81,6 @@
             <h4 class="cart-font">No orders placed yet.</h4>
         {% endif %}
 
-    </div>
-
-    <div class="container" id="back-to-menu">
-        <a href="{% url 'index' %}" class="navbar-brand mr-0">
-           <i class="fa fa-arrow-left"></i> Go Back to Menu
-        </a>
     </div>
 
 {% endblock %}
