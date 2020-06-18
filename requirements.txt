@@ -1,1 +1,4 @@
 django>=2.2.13
+django-heroku
+waitress>=1.4.2
+gunicorn==19.9.0
