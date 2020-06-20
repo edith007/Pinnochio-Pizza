@@ -4,20 +4,20 @@
 
 This project, _Pinnochio's Pizza & Subs_, is an interactive Django web application that surfaces the menu of an existing restaurant in Cambridge, Massachusetts and allows customer's to customize their order, add items to their cart and ultimately place food orders.Administrators also have access to page that allows them to view all orders and their current statuses.
 
-![](https://imgur.com/CQaurbX)
+![](https://i.imgur.com/CQaurbX.png)
 
 If their credentials do not exist, a customer may register for an account by providing a username, name and email. If the username is already taken, the customer will be prompted to provide another username. If the username is available, their account will be created and the user will be redirected back to the login page to login.
 
 Once the customer has been authenticated, they will be brought to the website's main landing page, which surfaces all the items on the Pinnochio's Pizza & Subs menu (shown below).
 
-![](https://imgur.com/zNwA3pr)
+![](https://i.imgur.com/zNwA3pr.png)
 
-![](https://imgur.com/cVgjeP1)
+![](https://i.imgur.com/cVgjeP1.png)
 
 
 #### Administrators Only
 
-![](https://imgur.com/7Q0kxpP)
+![](https://i.imgur.com/7Q0kxpP.png)
 
 ## II. Website Components
 
